@@ -8,12 +8,8 @@ class Result:
         self.leader_solution = 0
         self.func_evals = 0
 
-"""
-LCO = Leaders-Chain-Optimizer
-Each individuals considers higher fitter individual as his leader.
-So, it moves towards higher fitter individual.
-"""
-def LCO(fitness_func, sol_count, dimensions, iterations_count,
+
+def GSO(fitness_func, sol_count, dimensions, iterations_count,
         lower_bound, upper_bound, mutation_rate=0.5,
         stopping_func=None, plt_func=None, verbose=True):
 
@@ -110,4 +106,5 @@ def LCO(fitness_func, sol_count, dimensions, iterations_count,
     # return leader result
     result.leader_fitness = leader_fitness
     result.leader_solution = solutions[0]
+
     return  result
