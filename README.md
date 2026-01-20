@@ -7,7 +7,7 @@ Glider Snake Optimization (GSO) is a novel nature-inspired metaheuristic optimiz
 
 This repository provides the official Python implementation of the GSO algorithm used in the experimental evaluations reported in the corresponding research paper.
 
----
+
 
 ## Repository Contents
 
@@ -16,7 +16,7 @@ The repository includes the following files:
 * **GSO.py**: Core Python implementation of the Glider Snake Optimization algorithm
 * **README.md**: Documentation and usage instructions
 
----
+
 
 ## Requirements
 
@@ -32,13 +32,6 @@ Install NumPy using:
 pip install numpy
 ```
 
----
-
-## Installation
-
-Clone or download this repository and ensure NumPy is installed.
-
----
 
 ## Usage
 
@@ -82,7 +75,6 @@ print(f"Best solution: {result.leader_solution}")
 | `plt_func` | function | None | Plotting callback |
 | `verbose` | bool | True | Print progress |
 
----
 
 
 ## Citation
