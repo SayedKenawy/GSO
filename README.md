@@ -1,3 +1,4 @@
+
 # Glider Snake Optimization (GSO)
 
 ## Overview
@@ -23,6 +24,7 @@ The implementation requires:
 
 * Python **3.8** or later
 * **NumPy** library
+* **random** (standard library)
 
 Install NumPy using:
 
@@ -32,67 +34,73 @@ pip install numpy
 
 ---
 
+## Installation
+
+Clone or download this repository and ensure NumPy is installed.
+
+---
+
 ## Usage
 
-The GSO algorithm can be applied to continuous optimization problems by defining an objective function and specifying the problem dimensions and bounds. The provided implementation follows the same configuration used in the experimental section of the paper.
+The GSO function optimizes continuous problems. Define your fitness function, then call GSO with parameters.
 
-A typical workflow includes:
+### Example: Sphere Function
 
-1. Defining the objective function
-2. Setting problem dimensionality and bounds
-3. Initializing the GSO optimizer
-4. Running the optimization process to obtain the best solution
+```python
+import numpy as np
 
----
+def sphere(x):
+    return np.sum(x**2)
 
-## Algorithm Parameters
+result = GSO(
+    fitness_func=sphere,
+    sol_count=10,
+    dimensions=30,
+    iterations_count=100,
+    lower_bound=-100,
+    upper_bound=100,
+    mutation_rate=0.5,
+    verbose=True
+)
 
-The main parameters of GSO are:
+print(f"Best fitness: {result.leader_fitness}")
+print(f"Best solution: {result.leader_solution}")
+```
 
-* **Population size (number of search agents)**: 10
-* **Maximum number of iterations**: 100
-* **Adaptive control parameter (A)**: linearly decreases from 1 to 0
-* **Lower and upper bounds**: problem-dependent
+### Parameters
 
-Unless otherwise stated, all reported results in the paper were obtained using **10 agents** and **100 iterations** to ensure fair comparison with competing algorithms.
-
----
-
-## Experimental Setup
-
-All experiments were conducted on a fixed computational platform to ensure fairness and reproducibility. The system configuration is as follows:
-
-* **CPU**: AMD Ryzen 7 5800X
-* **RAM**: 16 GB DDR4 (3200 MHz)
-* **GPU**: NVIDIA RTX 4060 (12 GB)
-* **Operating System**: Windows 11 Pro (64-bit)
-
----
-
-## Benchmark Problems
-
-The GSO algorithm was evaluated on:
-
-* 23 classical benchmark functions
-* CEC 2019 benchmark suite
-* High-dimensional optimization problems (100, 500, and 1000 dimensions)
-* Constrained real-world engineering design problems
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `fitness_func` | function | - | Objective function to minimize |
+| `sol_count` | int | - | Population size (recommended: 10) |
+| `dimensions` | int | - | Problem dimensionality |
+| `iterations_count` | int | - | Max iterations (recommended: 100) |
+| `lower_bound` | float/list | - | Lower search bound(s) |
+| `upper_bound` | float/list | - | Upper search bound(s) |
+| `mutation_rate` | float | 0.5 | Probability for chain mutation |
+| `stopping_func` | function | None | Custom stopping criterion |
+| `plt_func` | function | None | Plotting callback |
+| `verbose` | bool | True | Print progress |
 
 ---
 
-## Reproducibility
+## Algorithm Details
 
-The source code in this repository corresponds exactly to the version used in the reported experiments. All benchmark tests were executed multiple times, and the following statistics were recorded:
+GSO sorts the population by fitness each iteration (elitism preserved). Followers update via:
 
-* Best value
-* Worst value
-* Mean value
-* Standard deviation
+- **Mutation mode** (if `mutation_rate > m` and rank > 50%): Chain + leader influence
+- **Chain mode**: Global leader + nearest neighbor pull
 
-Initial solutions were generated using uniform random distributions within the defined search bounds.
+Adaptive parameter \( A = 1 - t / T_{\max} \) controls step size.
+
+---
+
+
+
+
 
 ---
 
 ## Citation
 
-If you use this code in your research, please cite the corresponding paper describing the Glider Snake Optimization (GSO) algorithm.
+Cite the GSO paper if used in research.
