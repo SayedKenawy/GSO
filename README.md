@@ -84,22 +84,6 @@ print(f"Best solution: {result.leader_solution}")
 
 ---
 
-## Algorithm Details
-
-GSO sorts the population by fitness each iteration (elitism preserved). Followers update via:
-
-- **Mutation mode** (if `mutation_rate > m` and rank > 50%): Chain + leader influence
-- **Chain mode**: Global leader + nearest neighbor pull
-
-Adaptive parameter \( A = 1 - t / T_{\max} \) controls step size.
-
----
-
-
-
-
-
----
 
 ## Citation
 
